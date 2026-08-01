@@ -64,15 +64,19 @@
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
     font-family:var(--font-body); font-weight:600; font-size:15px;
     padding:14px 28px; border-radius:2px; border:1px solid transparent; cursor:pointer;
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease;
   }
   .btn-primary{ background:var(--color-primary-wine); color:var(--color-cream); }
-  .btn-primary:hover{ background:var(--color-primary-wine-deep); color:var(--color-cream); }
+  .btn-primary:hover{ background:var(--color-primary-wine-deep); color:var(--color-cream); transform:translateY(-2px); box-shadow:0 10px 24px rgba(92,26,46,0.3); }
   .btn-outline{ background:transparent; color:var(--color-primary-wine-deep); border-color:var(--color-primary-wine-deep); }
-  .btn-outline:hover{ background:var(--color-primary-wine-deep); color:var(--color-cream); }
+  .btn-outline:hover{ background:var(--color-primary-wine-deep); color:var(--color-cream); transform:translateY(-2px); }
   .btn-premium{ background:var(--color-gold); color:var(--color-ink); }
-  .btn-premium:hover{ background:#b58f4a; }
+  .btn-premium:hover{ background:#b58f4a; transform:translateY(-2px); box-shadow:0 10px 24px rgba(198,161,91,0.35); }
   .btn-disabled{ background:#e4dccb; color:var(--color-muted); cursor:not-allowed; }
+  .btn-sm{ padding:10px 18px; font-size:13px; }
+  .btn:focus-visible, nav.main-nav a:focus-visible, .header-actions .icon:focus-visible{
+    outline:2px solid var(--color-gold); outline-offset:2px;
+  }
 
   /* ===== ANNOUNCEMENT BAR — Dawn: sections/announcement-bar.liquid ===== */
   .announcement-bar{
@@ -104,20 +108,22 @@
 
   /* ===== HERO — Dawn: sections/hero.liquid (image-banner) ===== */
   .hero{
-    position:relative; min-height:640px; display:flex; align-items:center;
+    position:relative; min-height:700px; display:flex; align-items:center;
     background:
-      radial-gradient(ellipse at 30% 100%, rgba(0,0,0,0.55) 0%, transparent 55%),
-      linear-gradient(180deg, rgba(61,18,32,0.35) 0%, rgba(33,29,28,0.75) 100%),
-      linear-gradient(120deg, #3D1220 0%, #5C1A2E 45%, #211D1C 100%);
+      linear-gradient(100deg, rgba(33,29,28,0.95) 0%, rgba(61,18,32,0.86) 30%, rgba(61,18,32,0.5) 56%, rgba(61,18,32,0.18) 78%, rgba(61,18,32,0.05) 100%),
+      linear-gradient(0deg, rgba(20,15,14,0.55) 0%, transparent 30%),
+      url('images/events/hero-weinbar.jpg') center 65% / cover no-repeat;
   }
   .hero-content{ max-width:640px; padding:0 var(--gutter); position:relative; z-index:2; }
-  .hero-content .eyebrow{ color:var(--color-gold); }
+  .hero-content .eyebrow{ color:var(--color-gold); text-shadow:0 2px 12px rgba(0,0,0,0.3); }
   .hero-content h1{
-    font-size:clamp(38px, 5vw, 72px); color:var(--color-cream); margin-bottom:var(--space-lg);
+    font-size:clamp(40px, 5.2vw, 76px); color:var(--color-cream); margin-bottom:var(--space-lg);
+    text-shadow:0 4px 28px rgba(0,0,0,0.4);
   }
   .hero-content h1 em{ font-style:italic; color:var(--color-gold); }
-  .hero-content p{ font-size:18px; line-height:1.6; color:rgba(243,233,216,0.85); max-width:520px; margin-bottom:var(--space-xl); }
+  .hero-content p{ font-size:18px; line-height:1.6; color:rgba(243,233,216,0.9); max-width:520px; margin-bottom:var(--space-2xl); text-shadow:0 2px 16px rgba(0,0,0,0.3); }
   .hero-ctas{ display:flex; gap:var(--space-md); flex-wrap:wrap; }
+  .hero-ctas .btn-primary{ padding:17px 34px; font-size:16px; box-shadow:0 12px 32px rgba(92,26,46,0.45); }
   .btn-on-dark{ background:transparent; color:var(--color-cream); border-color:rgba(243,233,216,0.5); }
   .btn-on-dark:hover{ background:rgba(243,233,216,0.1); border-color:var(--color-cream); }
 
@@ -134,56 +140,77 @@
   /* ===== SECTION generic ===== */
   section{ padding:var(--space-4xl) 0; }
   .section-head{ text-align:center; max-width:620px; margin:0 auto var(--space-3xl); }
-  .section-head h2{ font-size:38px; margin-top:var(--space-sm); }
+  .section-head h2{ font-size:clamp(28px, 6vw, 38px); margin-top:var(--space-sm); }
   .section-head p{ color:var(--color-muted); font-size:16px; margin-top:var(--space-md); line-height:1.6; }
 
   /* ===== FEATURED COLLECTION — Dawn: sections/featured-collection.liquid ===== */
-  .wine-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:var(--gutter); }
+  .wine-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:var(--space-xl); }
   .wine-card{
-    background:var(--color-surface); border:1px solid rgba(122,36,54,0.12); border-radius:2px; overflow:hidden;
-    transition:transform .25s ease, box-shadow .25s ease;
+    background:var(--color-surface); border:1px solid rgba(122,36,54,0.1); border-radius:2px; overflow:hidden;
+    display:flex; flex-direction:column; height:100%;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
   }
-  .wine-card:hover{ transform:translateY(-4px); box-shadow:0 16px 32px rgba(61,18,32,0.12); }
+  .wine-card:hover{ transform:translateY(-6px); box-shadow:0 24px 48px rgba(61,18,32,0.14); }
   .wine-card .thumb{
-    height:220px; display:flex; align-items:center; justify-content:center; position:relative;
+    height:300px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
     background:linear-gradient(160deg, var(--color-sandstone) 0%, #e0cbba 100%);
   }
-  .wine-card .thumb .bottle{
-    width:36px; height:130px; border-radius:4px 4px 10px 10px;
-    background:linear-gradient(180deg, var(--color-primary-wine-deep), var(--color-primary-wine));
-    position:relative;
-  }
-  .wine-card .thumb .bottle::before{
-    content:''; position:absolute; top:-18px; left:50%; transform:translateX(-50%);
-    width:10px; height:20px; background:var(--color-primary-wine-deep);
-  }
+  .wine-card .thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.8,.2,1); }
+  .wine-card:hover .thumb img{ transform:scale(1.06); }
   .wine-card .badge{
-    position:absolute; top:12px; left:12px; background:var(--color-terracotta); color:var(--color-cream);
-    font-size:11px; font-weight:600; letter-spacing:.3px; padding:4px 10px; border-radius:2px;
+    position:absolute; top:14px; left:14px; background:var(--color-terracotta); color:var(--color-cream);
+    font-size:11px; font-weight:600; letter-spacing:.3px; padding:5px 11px; border-radius:2px;
   }
   .wine-card .badge.limited{ background:var(--color-gold); color:var(--color-ink); }
-  .wine-card .info{ padding:var(--space-lg); }
-  .wine-card .region{ font-size:12px; color:var(--color-copper); font-weight:600; letter-spacing:.3px; text-transform:uppercase; }
-  .wine-card h3{ font-size:21px; margin:6px 0 4px; }
-  .wine-card .desc{ font-size:13px; color:var(--color-muted); margin-bottom:var(--space-md); line-height:1.5; }
-  .wine-card .price-row{ display:flex; align-items:center; justify-content:space-between; }
-  .wine-card .price{ font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--color-primary-wine-deep); }
+  .badge.copper{ background:var(--color-copper); }
+  .wine-card .info{ padding:var(--space-xl); display:flex; flex-direction:column; flex:1; }
+  .wine-card .region{ font-size:12px; color:var(--color-copper); font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .wine-card h3{
+    font-size:22px; margin:8px 0 6px; line-height:1.25;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .wine-card .desc{ font-size:13.5px; color:var(--color-muted); margin-bottom:var(--space-lg); line-height:1.6; flex:1; }
+  .wine-card .price-row{
+    display:flex; align-items:center; justify-content:space-between; margin-top:auto;
+    padding-top:var(--space-md); border-top:1px solid rgba(122,36,54,0.08);
+  }
+  .wine-card .price{ font-family:var(--font-display); font-size:25px; font-weight:600; color:var(--color-primary-wine-deep); }
 
   /* ===== RICH TEXT / STORY — Dawn: sections/rich-text.liquid + image-with-text.liquid ===== */
   .story{ background:var(--color-surface); }
-  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4xl); align-items:center; }
-  .story-image{
-    aspect-ratio:4/5; border-radius:2px; position:relative; overflow:hidden;
-    background:linear-gradient(160deg, #7a6a52 0%, var(--color-primary-wine-deep) 70%, #211D1C 100%);
+  .story-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:var(--space-4xl); align-items:center; }
+  .story-image-wrap{ position:relative; }
+  .story-image-wrap::before{
+    content:''; position:absolute; top:var(--space-lg); left:calc(-1 * var(--space-lg)); right:calc(-1 * var(--space-lg)); bottom:calc(-1 * var(--space-lg));
+    border:1px solid var(--color-gold); border-radius:2px; z-index:0;
   }
+  .story-image{
+    aspect-ratio:4/5; border-radius:2px; position:relative; overflow:hidden; z-index:1;
+    background:linear-gradient(160deg, #7a6a52 0%, var(--color-primary-wine-deep) 70%, #211D1C 100%);
+    box-shadow:0 32px 64px rgba(61,18,32,0.18);
+  }
+  .story-image img{ width:100%; height:100%; object-fit:cover; }
   .story-image::after{
     content:'Fachwerk · Altstadt Burgsteinfurt'; position:absolute; bottom:var(--space-lg); left:var(--space-lg);
     color:rgba(243,233,216,0.75); font-size:12px; letter-spacing:.3px;
   }
   .story-text .eyebrow{ color:var(--color-terracotta); }
-  .story-text h2{ font-size:36px; margin-bottom:var(--space-lg); }
-  .story-text p{ font-size:16px; line-height:1.7; color:#463f3a; margin-bottom:var(--space-md); }
+  .story-text h2{ font-size:clamp(28px, 7vw, 38px); margin-bottom:var(--space-lg); }
+  .story-text p{ font-size:17px; line-height:1.75; color:#463f3a; margin-bottom:var(--space-md); max-width:46ch; }
   .story-text .signature{ font-family:var(--font-display); font-style:italic; color:var(--color-wine-400); font-size:19px; margin-top:var(--space-lg); }
+  .story-more{
+    display:inline-flex; align-items:center; gap:8px; margin-top:var(--space-xl);
+    font-family:var(--font-body); font-weight:600; font-size:14px; letter-spacing:.3px;
+    color:var(--color-primary-wine-deep); position:relative; padding-bottom:2px;
+  }
+  .story-more::after{
+    content:''; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--color-gold); transition:right .3s ease;
+  }
+  .story-more:hover{ color:var(--color-primary-wine-deep); }
+  .story-more:hover::after{ right:0; }
+  .story-more span{ transition:transform .3s ease; color:var(--color-gold); }
+  .story-more:hover span{ transform:translateX(4px); }
 
   /* ===== TURMWÄCHTER SPOTLIGHT — Dawn: sections/collection-list.liquid or custom-liquid (signature product) ===== */
   .spotlight{
@@ -194,44 +221,74 @@
     content:''; position:absolute; inset:0;
     background:radial-gradient(circle at 85% 20%, rgba(198,161,91,0.18), transparent 55%);
   }
-  .spotlight-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:var(--space-4xl); align-items:center; position:relative; z-index:2; }
-  .cask{
-    aspect-ratio:1/1; border-radius:50%; border:1px solid rgba(198,161,91,0.4);
-    display:flex; align-items:center; justify-content:center; position:relative;
-    background:radial-gradient(circle, rgba(198,161,91,0.08), transparent 70%);
+  .spotlight-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:var(--space-4xl); align-items:center; position:relative; z-index:2; }
+  .spotlight-media{
+    aspect-ratio:4/5; border-radius:2px; position:relative; overflow:hidden;
+    box-shadow:0 32px 64px rgba(0,0,0,0.35); border:1px solid rgba(198,161,91,0.3);
   }
-  .cask-inner{
-    width:78%; height:78%; border-radius:50%; border:1px solid rgba(198,161,91,0.55);
+  .spotlight-media img{ width:100%; height:100%; object-fit:cover; }
+  .spotlight-media::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(200deg, transparent 45%, rgba(20,10,10,0.65) 100%);
+  }
+  .spotlight-seal{
+    position:absolute; bottom:var(--space-lg); left:var(--space-lg); z-index:2;
+    width:104px; height:104px; border-radius:50%;
+    background:rgba(33,29,28,0.5); backdrop-filter:blur(6px); border:1px solid rgba(198,161,91,0.55);
     display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   }
-  .cask-inner .years{ font-family:var(--font-display); font-size:46px; color:var(--color-gold); font-weight:600; }
-  .cask-inner .yearslabel{ font-size:12px; letter-spacing:.3px; color:rgba(243,233,216,0.75); margin-top:2px; }
+  .spotlight-seal .years{ font-family:var(--font-display); font-size:32px; color:var(--color-gold); font-weight:600; line-height:1; }
+  .spotlight-seal .yearslabel{ font-size:10px; letter-spacing:.3px; color:rgba(243,233,216,0.8); margin-top:3px; line-height:1.25; }
   .spotlight-text .eyebrow{ color:var(--color-gold); }
-  .spotlight-text h2{ color:var(--color-cream); font-size:44px; margin-bottom:var(--space-md); }
+  .spotlight-text h2{ color:var(--color-cream); font-size:clamp(32px, 8vw, 48px); margin-bottom:var(--space-md); }
+  .spotlight-lede{
+    font-family:var(--font-display); font-style:italic; font-weight:500; font-size:clamp(19px, 2.4vw, 23px);
+    color:var(--color-gold); line-height:1.4; margin-bottom:var(--space-lg); max-width:480px;
+  }
   .spotlight-text p{ color:rgba(243,233,216,0.85); font-size:16px; line-height:1.7; margin-bottom:var(--space-xl); max-width:480px; }
   .spotlight-ctas{ display:flex; gap:var(--space-md); flex-wrap:wrap; }
 
   /* ===== EVENT CARD — Dawn: sections/collection-list.liquid (custom event template) ===== */
   .events{ background:var(--color-sandstone); }
+  .event-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--space-xl); }
   .event-card{
-    display:grid; grid-template-columns:220px 1fr auto; gap:var(--space-xl); align-items:center;
-    background:var(--color-surface); border-radius:2px; padding:var(--space-lg); border:1px solid rgba(122,36,54,0.1);
+    display:flex; flex-direction:column; height:100%;
+    background:var(--color-surface); border-radius:2px; overflow:hidden; border:1px solid rgba(122,36,54,0.08);
+    box-shadow:0 8px 24px rgba(61,18,32,0.06);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
   }
+  .event-card:hover{ transform:translateY(-6px); box-shadow:0 24px 48px rgba(61,18,32,0.14); }
   .event-thumb{
-    height:140px; border-radius:2px;
+    height:200px; border-radius:0;
     background:linear-gradient(160deg, #d9bfa9, var(--color-terracotta));
-    position:relative;
+    position:relative; overflow:hidden;
   }
+  .event-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.8,.2,1); }
+  .event-card:hover .event-thumb img{ transform:scale(1.06); }
   .event-thumb .badge{
-    position:absolute; top:10px; left:10px; background:var(--color-primary-wine-deep); color:var(--color-cream);
-    font-size:10px; font-weight:600; padding:3px 9px; border-radius:2px; letter-spacing:.3px;
+    position:absolute; top:12px; left:12px; background:var(--color-primary-wine-deep); color:var(--color-cream);
+    font-size:10px; font-weight:600; padding:4px 10px; border-radius:2px; letter-spacing:.3px;
   }
-  .event-date{ font-size:13px; color:var(--color-copper); font-weight:600; letter-spacing:.3px; }
-  .event-card h3{ font-size:24px; margin:4px 0 8px; }
-  .event-card p{ font-size:14px; color:var(--color-muted); line-height:1.5; max-width:420px; }
-  .event-price{ text-align:right; }
-  .event-price .amount{ font-family:var(--font-display); font-size:26px; font-weight:600; color:var(--color-primary-wine-deep); }
-  .event-price .unit{ font-size:12px; color:var(--color-muted); display:block; margin-bottom:var(--space-md); }
+  .event-body{ padding:var(--space-lg) var(--space-lg) var(--space-xl); display:flex; flex-direction:column; flex:1; }
+  .event-date{
+    display:inline-block; align-self:flex-start; font-size:12px; color:var(--color-copper); font-weight:600; letter-spacing:.3px;
+    background:rgba(154,107,52,0.09); padding:5px 10px; border-radius:2px; margin-bottom:var(--space-md);
+  }
+  .event-card h3{ font-size:22px; margin:0 0 10px; line-height:1.2; }
+  .event-card p{ font-size:14px; color:var(--color-muted); line-height:1.6; flex:1; margin-bottom:var(--space-lg); }
+  .event-cta{
+    display:flex; align-items:center; justify-content:space-between; gap:var(--space-md);
+    margin-top:auto; padding-top:var(--space-md); border-top:1px solid rgba(122,36,54,0.08);
+  }
+  .event-price{ line-height:1.1; }
+  .event-price .amount{ font-family:var(--font-display); font-size:24px; font-weight:600; color:var(--color-primary-wine-deep); }
+  .event-price .unit{ font-size:11px; color:var(--color-muted); display:block; }
+  .event-link{
+    display:inline-flex; align-items:center; gap:6px; font-weight:600; font-size:14px;
+    color:var(--color-primary-wine-deep);
+  }
+  .event-link span{ color:var(--color-gold); transition:transform .3s ease; }
+  .event-link:hover span{ transform:translateX(4px); }
 
   /* ===== MULTICOLUMN FEATURES — Dawn: sections/multicolumn.liquid ===== */
   .features{ background:var(--color-surface); }
@@ -245,38 +302,119 @@
   .feature h4{ font-size:18px; margin-bottom:6px; }
   .feature p{ font-size:14px; color:var(--color-muted); line-height:1.5; }
 
+  /* ===== TESTIMONIALS — Dawn: sections/testimonials.liquid ===== */
+  .testimonials{ background:var(--color-sandstone); }
+  .testimonial-track{ display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--space-xl); }
+  .testimonial-card{
+    background:var(--color-surface); border-radius:2px; padding:var(--space-2xl);
+    border:1px solid rgba(122,36,54,0.08); box-shadow:0 8px 24px rgba(61,18,32,0.06);
+    display:flex; flex-direction:column; height:100%;
+  }
+  .testimonial-stars{ color:var(--color-gold); font-size:16px; letter-spacing:3px; margin-bottom:var(--space-md); }
+  .testimonial-quote{
+    font-family:var(--font-display); font-style:italic; font-weight:500; font-size:19px; line-height:1.5;
+    color:var(--color-ink); margin-bottom:var(--space-xl); flex:1;
+  }
+  .testimonial-person{
+    display:flex; align-items:center; gap:var(--space-md); margin-top:auto;
+    padding-top:var(--space-lg); border-top:1px solid rgba(122,36,54,0.08);
+  }
+  .testimonial-avatar{
+    width:52px; height:52px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(160deg, var(--color-primary-wine) 0%, var(--color-primary-wine-deep) 100%);
+    color:var(--color-cream); display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:600; font-size:18px;
+  }
+  .testimonial-name{ font-weight:600; font-size:15px; color:var(--color-ink); }
+  .testimonial-role{ font-size:13px; color:var(--color-muted); }
+  .testimonial-nav{ display:none; justify-content:center; align-items:center; gap:var(--space-lg); margin-top:var(--space-2xl); }
+  .testimonial-arrow{
+    width:44px; height:44px; border-radius:50%; border:1px solid rgba(122,36,54,0.2);
+    background:var(--color-surface); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--color-primary-wine-deep); font-size:16px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .testimonial-arrow:hover{ background:var(--color-primary-wine-deep); color:var(--color-cream); }
+  .testimonial-dots{ display:flex; gap:8px; }
+  .testimonial-dot{
+    width:8px; height:8px; border-radius:50%; background:rgba(122,36,54,0.25);
+    cursor:pointer; border:none; padding:0; transition:background .2s ease, transform .2s ease;
+  }
+  .testimonial-dot.active{ background:var(--color-primary-wine-deep); transform:scale(1.35); }
+
   /* ===== RESERVATION FORM — Dawn: sections/contact-form.liquid ===== */
   .reserve{ background:var(--color-cream); }
   .reserve-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4xl); align-items:center; }
-  .reserve-form{ background:var(--color-surface); border-radius:2px; padding:var(--space-2xl); border:1px solid rgba(122,36,54,0.1); }
-  .reserve-form h3{ font-size:26px; margin-bottom:var(--space-lg); }
-  .field{ margin-bottom:var(--space-md); }
-  .field label{ display:block; font-size:13px; font-weight:600; color:var(--color-ink); margin-bottom:6px; }
-  .field input{
-    width:100%; padding:12px 14px; border:1px solid rgba(122,36,54,0.2); border-radius:2px;
-    font-family:var(--font-body); font-size:15px; background:var(--color-cream);
+  .reserve-form{
+    background:var(--color-surface); border-radius:2px; padding:var(--space-3xl);
+    border:1px solid rgba(122,36,54,0.1); box-shadow:0 24px 48px rgba(61,18,32,0.08);
   }
-  .field input:focus{ outline:2px solid var(--color-terracotta); outline-offset:1px; }
+  .reserve-form h3{ font-size:27px; margin-bottom:var(--space-xl); }
+  .field{ margin-bottom:var(--space-lg); }
+  .field label{
+    display:block; font-size:12px; font-weight:600; color:var(--color-copper); margin-bottom:8px;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .field input{
+    width:100%; padding:16px 18px; border:1px solid rgba(122,36,54,0.18); border-radius:2px;
+    font-family:var(--font-body); font-size:16px; background:var(--color-cream);
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .field input:focus{ outline:none; border-color:var(--color-terracotta); box-shadow:0 0 0 3px rgba(180,90,60,0.14); }
   .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md); }
+  .reserve-form .btn-primary{
+    padding:17px 28px; font-size:16px; letter-spacing:.3px;
+    box-shadow:0 12px 28px rgba(92,26,46,0.28); transition:background .2s ease, box-shadow .3s ease, transform .3s ease;
+  }
+  .reserve-form .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(92,26,46,0.36); }
 
   /* ===== NEWSLETTER — Dawn: sections/newsletter.liquid ===== */
-  .newsletter{ background:var(--color-primary-wine-deep); color:var(--color-cream); text-align:center; }
-  .newsletter h2{ color:var(--color-cream); font-size:32px; margin-bottom:var(--space-sm); }
-  .newsletter p{ color:rgba(243,233,216,0.75); margin-bottom:var(--space-xl); }
-  .newsletter-form{ display:flex; max-width:440px; margin:0 auto; gap:0; }
-  .newsletter-form input{
-    flex:1; padding:14px 18px; border:1px solid rgba(198,161,91,0.4); border-right:none;
-    border-radius:2px 0 0 2px; background:rgba(255,255,255,0.05); color:var(--color-cream); font-family:var(--font-body);
+  .newsletter{
+    background:linear-gradient(135deg, var(--color-primary-wine-deep) 0%, #2c0d17 100%);
+    color:var(--color-cream); text-align:center;
   }
+  .newsletter h2{ color:var(--color-cream); font-size:clamp(28px, 6.5vw, 40px); margin-bottom:var(--space-md); }
+  .newsletter p{ color:rgba(243,233,216,0.75); margin-bottom:var(--space-xl); font-size:16.5px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.6; }
+  .newsletter-form{ display:flex; max-width:480px; margin:0 auto; gap:0; }
+  .newsletter-form input{
+    flex:1; padding:17px 20px; border:1px solid rgba(198,161,91,0.4); border-right:none;
+    border-radius:2px 0 0 2px; background:rgba(255,255,255,0.06); color:var(--color-cream); font-family:var(--font-body); font-size:15px;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .newsletter-form input:focus{ outline:none; border-color:var(--color-gold); background:rgba(255,255,255,0.1); }
   .newsletter-form input::placeholder{ color:rgba(243,233,216,0.5); }
-  .newsletter-form button{ border-radius:0 2px 2px 0; }
+  .newsletter-form button{
+    border-radius:0 2px 2px 0; padding:17px 30px; font-size:15.5px;
+    box-shadow:0 12px 28px rgba(0,0,0,0.25); transition:background .2s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .newsletter-form button:hover{ transform:translateY(-2px); box-shadow:0 16px 34px rgba(0,0,0,0.32); }
+  .newsletter-trust{ margin-top:var(--space-lg); font-size:12px; color:rgba(243,233,216,0.5); letter-spacing:.2px; }
 
   /* ===== FOOTER — Dawn: sections/footer.liquid ===== */
   footer{ background:var(--color-ink); color:rgba(243,233,216,0.7); padding:var(--space-4xl) 0 var(--space-lg); }
   .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:var(--space-xl); margin-bottom:var(--space-3xl); }
-  .footer-grid h5{ color:var(--color-cream); font-family:var(--font-display); font-size:18px; margin-bottom:var(--space-md); font-weight:600; }
-  .footer-grid p, .footer-grid a{ font-size:14px; color:rgba(243,233,216,0.65); display:block; margin-bottom:8px; }
-  .footer-grid a:hover{ color:var(--color-gold); }
+  .footer-grid h5{
+    color:var(--color-cream); font-family:var(--font-display); font-size:18px; font-weight:600;
+    margin-bottom:var(--space-lg); padding-bottom:var(--space-sm); position:relative;
+  }
+  .footer-grid h5::after{
+    content:''; position:absolute; left:0; bottom:0; width:28px; height:2px; background:var(--color-gold);
+  }
+  .footer-grid p, .footer-grid a{ font-size:14px; color:rgba(243,233,216,0.65); display:block; margin-bottom:10px; }
+  .footer-grid a{ transition:color .2s ease, padding-left .2s ease; }
+  .footer-grid a:hover{ color:var(--color-gold); padding-left:3px; }
+  .footer-hours{ display:grid; grid-template-columns:auto 1fr; gap:6px var(--space-md); margin-bottom:var(--space-md); }
+  .footer-hours dt{ font-size:13px; color:rgba(243,233,216,0.5); font-weight:500; }
+  .footer-hours dd{ font-size:14px; color:rgba(243,233,216,0.85); font-weight:500; text-align:right; }
+  .footer-hours-note{ font-size:13px; color:rgba(243,233,216,0.55); line-height:1.5; padding-top:var(--space-sm); border-top:1px solid rgba(198,161,91,0.15); }
+  .footer-social{ display:flex; gap:10px; margin-top:var(--space-lg); }
+  .footer-social a{
+    width:44px; height:44px; border-radius:50%; border:1px solid rgba(198,161,91,0.35);
+    display:flex; align-items:center; justify-content:center; color:var(--color-cream);
+    margin-bottom:0; transition:background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .footer-social a:hover{ background:var(--color-gold); border-color:var(--color-gold); color:var(--color-ink); transform:translateY(-2px); }
+  .footer-social svg{ width:18px; height:18px; fill:currentColor; }
   .footer-bottom{
     border-top:1px solid rgba(198,161,91,0.15); padding-top:var(--space-lg);
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--space-md);
@@ -302,26 +440,63 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 980px){
-    nav.main-nav{ display:none; }
-    .burger{ display:flex; }
+    nav.main-nav{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0; background:var(--color-primary-wine-deep);
+      border-top:1px solid rgba(198,161,91,0.25); box-shadow:0 16px 32px rgba(0,0,0,0.25);
+    }
+    nav.main-nav.open{ display:flex; }
+    nav.main-nav a{
+      padding:14px var(--gutter); min-height:44px; display:flex; align-items:center;
+      border-bottom:1px solid rgba(198,161,91,0.12);
+    }
+    .burger{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:-11px -11px -11px 0; }
+    .header-actions{ gap:var(--space-md); }
+    .header-actions .icon{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:44px; height:44px; margin:-13px;
+    }
+    .btn{ min-height:44px; }
     .wine-grid{ grid-template-columns:repeat(2, 1fr); }
     .story-grid, .spotlight-grid, .reserve-grid{ grid-template-columns:1fr; gap:var(--space-2xl); }
-    .story-image{ order:-1; aspect-ratio:16/9; }
+    .story-image-wrap{ order:-1; }
+    .story-image{ aspect-ratio:16/9; }
+    .spotlight-media{ max-width:340px; margin:0 auto; }
     .features-grid{ grid-template-columns:repeat(2, 1fr); }
-    .event-card{ grid-template-columns:1fr; text-align:left; }
-    .event-price{ text-align:left; }
-    .hero-stats{ position:static; flex-wrap:wrap; }
-    .hero-stats .stat{ flex:1 1 50%; border-bottom:1px solid rgba(198,161,91,0.2); }
+    .event-grid{ grid-template-columns:1fr; }
+    .event-thumb{ height:220px; }
+    .testimonial-track{
+      display:flex; gap:var(--space-lg); overflow-x:auto; scroll-snap-type:x mandatory;
+      padding-bottom:4px; scrollbar-width:none; margin:0 calc(-1 * var(--gutter)); padding-left:var(--gutter); padding-right:var(--gutter);
+    }
+    .testimonial-track::-webkit-scrollbar{ display:none; }
+    .testimonial-card{ flex:0 0 min(340px, 85%); scroll-snap-align:start; }
+    .testimonial-nav{ display:flex; }
+    .hero{ flex-direction:column; align-items:stretch; }
+    .hero-content{ padding-top:var(--space-3xl); padding-bottom:var(--space-2xl); }
+    .hero-stats{ position:static; }
+    .footer-grid{ grid-template-columns:repeat(2, 1fr); }
   }
   @media (max-width: 640px){
     .wine-grid{ grid-template-columns:1fr; }
     .features-grid{ grid-template-columns:1fr; }
     section{ padding:var(--space-3xl) 0; }
     .hero{ min-height:560px; }
+    .hero-stats{ flex-direction:column; }
+    .hero-stats .stat{ border-right:none; border-bottom:1px solid rgba(198,161,91,0.2); }
+    .hero-stats .stat:last-child{ border-bottom:none; }
     .newsletter-form{ flex-direction:column; }
     .newsletter-form input{ border-radius:2px; border-right:1px solid rgba(198,161,91,0.4); margin-bottom:8px; }
-    .newsletter-form button{ border-radius:2px; }
-    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .newsletter-form button{ border-radius:2px; width:100%; }
+  }
+  @media (max-width: 480px){
+    .logo{ font-size:20px; }
+    .footer-grid{ grid-template-columns:1fr; gap:var(--space-lg); }
+    .reserve-form{ padding:var(--space-xl) var(--space-lg); }
+    .field-row{ grid-template-columns:1fr; }
+    .age-gate-card{ padding:var(--space-xl) var(--space-lg); }
+    .age-gate-actions{ flex-direction:column; }
+    .age-gate-actions .btn{ width:100%; }
   }
 </style>
 </head>
@@ -329,14 +504,14 @@
 
   <!-- ===== ANNOUNCEMENT BAR — Dawn: sections/announcement-bar.liquid ===== -->
   <div class="announcement-bar">
-    Weinbar geöffnet: <strong>Di &amp; Do · 18–21 Uhr</strong> &nbsp;·&nbsp; Steinstraße 4, Burgsteinfurt
+    Weinbar geöffnet: <strong>Do · 18–21 Uhr</strong> &nbsp;·&nbsp; Fryday Wine Club <strong>Fr · 15–18 Uhr</strong> &nbsp;·&nbsp; Steinstraße 4, Burgsteinfurt
   </div>
 
   <!-- ===== HEADER — Dawn: sections/header.liquid ===== -->
   <header class="site-header">
     <div class="header-inner">
       <div class="logo">Vinothek Steinfurt</div>
-      <nav class="main-nav">
+      <nav class="main-nav" id="mainNav">
         <a href="#">Weine</a>
         <a href="#">Weinbar</a>
         <a href="#">Events</a>
@@ -347,7 +522,7 @@
         <span class="icon">⌕</span>
         <span class="icon">♡</span>
         <span class="icon">⛁</span>
-        <button class="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+        <button class="burger" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mainNav"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
@@ -380,39 +555,39 @@
       </div>
       <div class="wine-grid">
         <div class="wine-card">
-          <div class="thumb"><span class="badge">Neu im Sortiment</span><div class="bottle"></div></div>
+          <div class="thumb"><span class="badge limited">Limitiert</span><img src="images/products/sasse-vision.jpg" alt="Flasche Sasse Vision – streng limitierte Sonderedition, mit Geschenkverpackung" loading="lazy" decoding="async"></div>
           <div class="info">
-            <div class="region">Rioja, Spanien</div>
-            <h3>Tempranillo Reserva</h3>
-            <div class="desc">Kräftig, mit Noten von Kirsche und Vanille.</div>
-            <div class="price-row"><span class="price">24 €</span><a href="#" class="btn btn-outline" style="padding:8px 16px; font-size:13px;">Ansehen</a></div>
+            <div class="region">Sasse Limited Editions</div>
+            <h3>Sasse Vision</h3>
+            <div class="desc">Streng limitierte Sonderedition der Feinbrennerei Sasse — Geschmack, neu gedacht.</div>
+            <div class="price-row"><span class="price">95 €</span><a href="https://shop.vinothek-steinfurt.de/produkt/vision-streng-limitierte-sonderedition-2025/" class="btn btn-outline btn-sm">Ansehen</a></div>
           </div>
         </div>
         <div class="wine-card">
-          <div class="thumb"><span class="badge limited">Limitiert</span><div class="bottle"></div></div>
+          <div class="thumb"><span class="badge copper">Sasse Feinbrennerei</span><img src="images/products/sasse-lagerkorn-12.jpg" alt="Flasche Sasse Lagerkorn 12 mit Geschenkbox, Handcrafted German Whisky Limited Edition" loading="lazy" decoding="async"></div>
           <div class="info">
-            <div class="region">Mosel, Deutschland</div>
-            <h3>Riesling Spätlese</h3>
-            <div class="desc">Fruchtig-süß, feine Mineralik.</div>
-            <div class="price-row"><span class="price">19 €</span><a href="#" class="btn btn-outline" style="padding:8px 16px; font-size:13px;">Ansehen</a></div>
+            <div class="region">Sasse Limited Editions</div>
+            <h3>Sasse Lagerkorn 12</h3>
+            <div class="desc">Die wiedergeborene Edition — limitiert auf 1.500 Flaschen, handcrafted german whisky.</div>
+            <div class="price-row"><span class="price">190 €</span><a href="https://shop.vinothek-steinfurt.de/produkt/sasse-lagerkorn-12-limitiert-auf-1500-flaschen/" class="btn btn-outline btn-sm">Ansehen</a></div>
           </div>
         </div>
         <div class="wine-card">
-          <div class="thumb"><span class="badge" style="background:var(--color-copper);">Regional</span><div class="bottle"></div></div>
+          <div class="thumb"><img src="images/products/steinfurter-dry-gin.jpg" alt="Drei Flaschen Steinfurter Dry Gin in verschiedenen Größen vor dem historischen Rathaus Steinfurt" loading="lazy" decoding="async"></div>
+          <div class="info">
+            <div class="region">Lokale Produkte · Steinfurter</div>
+            <h3>Steinfurter Dry Gin</h3>
+            <div class="desc">Regionaler Dry Gin mit Steinfurter Stadtsilhouette-Etikett, in 100, 350 und 500 ml.</div>
+            <div class="price-row"><span class="price">ab 9,95 €</span><a href="https://shop.vinothek-steinfurt.de/produkt/steinfurter-dry-gin/" class="btn btn-outline btn-sm">Ansehen</a></div>
+          </div>
+        </div>
+        <div class="wine-card">
+          <div class="thumb"><span class="badge copper">Regional</span><img src="images/products/bierlikoer.jpg" alt="Vier Flaschen Bierlikör aus Rolinck Pilsener in unterschiedlichen Größen" loading="lazy" decoding="async"></div>
           <div class="info">
             <div class="region">Münsterland</div>
-            <h3>Sasse Lagerkorn</h3>
-            <div class="desc">Nach Kundenwunsch abgefüllt — nur hier im Kreis Steinfurt.</div>
-            <div class="price-row"><span class="price">ab 15 €</span><a href="#" class="btn btn-outline" style="padding:8px 16px; font-size:13px;">Ansehen</a></div>
-          </div>
-        </div>
-        <div class="wine-card">
-          <div class="thumb"><div class="bottle"></div></div>
-          <div class="info">
-            <div class="region">Piemont, Italien</div>
-            <h3>Barbera d'Alba</h3>
-            <div class="desc">Saftig, mit angenehmer Säure — Speisebegleiter.</div>
-            <div class="price-row"><span class="price">21 €</span><a href="#" class="btn btn-outline" style="padding:8px 16px; font-size:13px;">Ansehen</a></div>
+            <h3>Bierlikör aus Rolinck Pilsener</h3>
+            <div class="desc">Süffige Eigenkreation aus Rolinck Pilsener — in 250, 350 und 500 ml.</div>
+            <div class="price-row"><span class="price">ab 6,90 €</span><a href="https://shop.vinothek-steinfurt.de/produkt/rolinck-bierlikoer/" class="btn btn-outline btn-sm">Ansehen</a></div>
           </div>
         </div>
       </div>
@@ -422,13 +597,16 @@
   <!-- ===== RICH TEXT / STORY — Dawn: sections/image-with-text.liquid ===== -->
   <section class="story">
     <div class="container story-grid">
-      <div class="story-image"></div>
+      <div class="story-image-wrap">
+        <div class="story-image"><img src="images/events/italienischer-abend.jpg" alt="Blick auf den Turm des historischen Rathauses in der Altstadt Burgsteinfurt, gegenüber der Vinothek" loading="lazy" decoding="async"></div>
+      </div>
       <div class="story-text">
         <span class="eyebrow">Unsere Geschichte</span>
         <h2>Willkommen in der Vinothek</h2>
         <p>Die Vinothek + Weinbar liegt in der historischen Altstadt von Burgsteinfurt, direkt gegenüber dem alten Rathaus aus dem 16. Jahrhundert. 300 Weine sowie eine Vielzahl an Spirituosen, Essigen, Ölen, Bränden und Likören sind im Angebot.</p>
-        <p>Als einzige im Kreis Steinfurt füllen wir Sasse Lagerkorn nach Kundenwunsch ab. Tagsüber sowie Dienstags und Donnerstags von 18–21 Uhr lädt unsere Weinbar dazu ein, ein Glas Wein, Prosecco oder einen Cappuccino zu genießen — abends servieren wir regionale Tapas.</p>
+        <p>Als einzige im Kreis Steinfurt füllen wir Sasse Lagerkorn nach Kundenwunsch ab. Donnerstags von 18–21 Uhr lädt unsere Wein- &amp; Tapasbar zum Verweilen ein, freitags von 15–18 Uhr trifft sich der Fryday Wine Club — beides begleitet von regionalen Tapas.</p>
         <div class="signature">Ihr Oliver Tieck &amp; Team</div>
+        <a href="https://vinothek-steinfurt.de/" class="story-more">Mehr über unsere Geschichte erfahren <span>→</span></a>
       </div>
     </div>
   </section>
@@ -436,19 +614,21 @@
   <!-- ===== TURMWÄCHTER SPOTLIGHT — Dawn: custom section (signature product) ===== -->
   <section class="spotlight">
     <div class="container spotlight-grid">
-      <div class="cask">
-        <div class="cask-inner">
+      <div class="spotlight-media">
+        <img src="images/products/turmwaechter.jpg" alt="Flasche Steinfurter Turmwächter, gereift im 40 Jahre alten Pedro-Ximénez-Sherryfass, mit Etikett des historischen Rathauses" loading="lazy" decoding="async">
+        <div class="spotlight-seal">
           <div class="years">40</div>
-          <div class="yearslabel">Jahre Sherryfass</div>
+          <div class="yearslabel">Jahre<br>Sherryfass</div>
         </div>
       </div>
       <div class="spotlight-text">
         <span class="eyebrow">Eigenmarke · Limitierte Edition</span>
         <h2>Steinfurter Turmwächter</h2>
-        <p>Handgefertigt, regional inspiriert — gereift im 40 Jahre alten Pedro-Ximénez-Sherryfass. Ein unvergesslicher Genuss aus dem Herzen der Altstadt, auch als Geschenk im Shop erhältlich.</p>
+        <p class="spotlight-lede">Vierzig Jahre Geduld — für einen einzigen, unvergesslichen Schluck.</p>
+        <p>Handgefertigt, regional inspiriert — gereift im 40 Jahre alten Pedro-Ximénez-Sherryfass. Ein Stück Tradition aus dem Herzen der Altstadt, das Erfahrung und Handwerk in jeder Flasche spürbar macht. Auch als Geschenk im Shop erhältlich.</p>
         <div class="spotlight-ctas">
-          <a href="#" class="btn btn-premium">Edition entdecken</a>
-          <a href="#" class="btn btn-on-dark">Mehr erfahren →</a>
+          <a href="https://shop.vinothek-steinfurt.de/produkt/steinfurter-turmwaechter-gereift-im-pedro-ximenez-fass/" class="btn btn-premium">Edition entdecken</a>
+          <a href="https://vinothek-steinfurt.de/" class="btn btn-on-dark">Mehr erfahren →</a>
         </div>
       </div>
     </div>
@@ -462,18 +642,41 @@
         <h2>Wein- &amp; Käseabende, Tastings</h2>
         <p>Regelmäßig auf dem Programm — lernen Sie unser Sortiment probierend kennen.</p>
       </div>
-      <div class="event-card">
-        <div class="event-thumb"><span class="badge">Nur noch 3 Plätze</span></div>
-        <div>
-          <div class="event-date">Do · 14. August · 19:00 Uhr</div>
-          <h3>Wein- &amp; Käseabend</h3>
-          <p>Fünf Weine, fünf handverlesene Käsesorten — begleitet von Oliver Tieck, direkt gegenüber dem alten Rathaus.</p>
-        </div>
-        <div class="event-price">
-          <span class="amount">48 €</span>
-          <span class="unit">p. P.</span>
-          <a href="#" class="btn btn-primary" style="padding:10px 20px; font-size:13px;">Platz sichern</a>
-        </div>
+      <div class="event-grid">
+        <article class="event-card">
+          <div class="event-thumb"><span class="badge">Tasting</span><img src="images/events/wein-kaese-abend.jpg" alt="Gäste bei einem Wein- und Käseabend in der Vinothek Steinfurt" loading="lazy" decoding="async"></div>
+          <div class="event-body">
+            <span class="event-date">Fr · 25. Sept. 2026 · 19:30 Uhr</span>
+            <h3>Wein- &amp; Käse-Abend</h3>
+            <p>Sechs ausgewählte Weine — Weiß, Rosé und Rot — kombiniert mit passenden Käsesorten. Mit Einführung in Wein &amp; Käse, Terroir-Wissen und entspannter Atmosphäre.</p>
+            <div class="event-cta">
+              <div class="event-price"><span class="amount">49 €</span><span class="unit">p. P.</span></div>
+              <a href="https://vinothek-steinfurt.de/Veranstaltungen/wein-und-kaese-abend-7/" class="btn btn-primary btn-sm">Platz sichern</a>
+            </div>
+          </div>
+        </article>
+        <article class="event-card">
+          <div class="event-thumb"><span class="badge">Termin</span></div>
+          <div class="event-body">
+            <span class="event-date">Fr · 7. August 2026</span>
+            <h3>Italienischer Abend in der Altstadt</h3>
+            <p>Italienischer Abend rund um die Vinothek in der historischen Altstadt von Burgsteinfurt — Details und Anmeldung telefonisch unter 02551 – 4094.</p>
+            <div class="event-cta">
+              <a href="https://vinothek-steinfurt.de/Veranstaltungen/italinischer-abend-in-der-altstadt/" class="event-link">Mehr erfahren <span>→</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="event-card">
+          <div class="event-thumb"><span class="badge">Termin</span></div>
+          <div class="event-body">
+            <span class="event-date">So · 4. Oktober 2026</span>
+            <h3>Erntedankmarkt &amp; Federweißer</h3>
+            <p>Herbstlicher Markttag in der Altstadt — die Vinothek ist mit Federweißer und Sortiment vor Ort. Details telefonisch unter 02551 – 4094.</p>
+            <div class="event-cta">
+              <a href="https://vinothek-steinfurt.de/Veranstaltungen/erntedankmarkt-federweisser/" class="event-link">Mehr erfahren <span>→</span></a>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -492,14 +695,69 @@
         <p>Sasse Lagerkorn nach Kundenwunsch — einzigartig im Kreis Steinfurt.</p>
       </div>
       <div class="feature">
-        <div class="icon">Di/Do</div>
-        <h4>Weinbar 18–21 Uhr</h4>
-        <p>Tagsüber Wein &amp; Kaffee, abends regionale Tapas.</p>
+        <div class="icon">Do/Fr</div>
+        <h4>Weinbar &amp; Wine Club</h4>
+        <p>Do 18–21 Uhr Wein- &amp; Tapasbar, Fr 15–18 Uhr Fryday Wine Club.</p>
       </div>
       <div class="feature">
         <div class="icon">16.</div>
         <h4>Historische Altstadt</h4>
         <p>Direkt gegenüber dem alten Rathaus aus dem 16. Jahrhundert.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS — Dawn: sections/testimonials.liquid ===== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Was Gäste sagen</span>
+        <h2>Stimmen aus der Weinbar</h2>
+        <p>Persönliche Beratung und echte Genussmomente — das erzählen unsere Gäste über ihren Besuch.</p>
+      </div>
+      <div class="testimonial-track" id="testimonialTrack">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">Oliver nimmt sich wirklich Zeit für eine Beratung, die zu einem passt — man geht nie mit der falschen Flasche nach Hause.</p>
+          <div class="testimonial-person">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <div class="testimonial-name">Melanie K.</div>
+              <div class="testimonial-role">Stammgast aus Burgsteinfurt</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">Der Wein- &amp; Käseabend war ein wunderbarer Abend voller Entdeckungen — entspannt, persönlich und mit spürbarer Leidenschaft erklärt.</p>
+          <div class="testimonial-person">
+            <div class="testimonial-avatar">T</div>
+            <div>
+              <div class="testimonial-name">Torben S.</div>
+              <div class="testimonial-role">Gast beim Tasting</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">Der Turmwächter ist ein echtes Highlight — als Geschenk immer ein Volltreffer. Der Laden hat einfach Charakter.</p>
+          <div class="testimonial-person">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Andrea W.</div>
+              <div class="testimonial-role">Kundin seit mehreren Jahren</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-nav">
+        <button class="testimonial-arrow" id="testiPrev" aria-label="Vorherige Stimme">←</button>
+        <div class="testimonial-dots" id="testimonialDots">
+          <button class="testimonial-dot active" data-index="0" aria-label="Zeige Stimme 1"></button>
+          <button class="testimonial-dot" data-index="1" aria-label="Zeige Stimme 2"></button>
+          <button class="testimonial-dot" data-index="2" aria-label="Zeige Stimme 3"></button>
+        </div>
+        <button class="testimonial-arrow" id="testiNext" aria-label="Nächste Stimme">→</button>
       </div>
     </div>
   </section>
@@ -527,12 +785,13 @@
   <!-- ===== NEWSLETTER — Dawn: sections/newsletter.liquid ===== -->
   <section class="newsletter">
     <div class="container">
-      <h2>Post aus der Vinothek</h2>
-      <p>Neue Weine, Tastings &amp; Turmwächter-Editionen — direkt ins Postfach.</p>
+      <h2>Verpassen Sie keine Flasche.</h2>
+      <p>Neue Editionen vor allen anderen entdecken, exklusive Einladungen zu Tastings erhalten und die limitierte Turmwächter-Auflage sichern, bevor sie vergriffen ist.</p>
       <form class="newsletter-form">
-        <input type="email" placeholder="ihre@email.de">
-        <button type="submit" class="btn btn-premium">Abonnieren</button>
+        <input type="email" placeholder="ihre@email.de" required>
+        <button type="submit" class="btn btn-premium">Jetzt sichern</button>
       </form>
+      <div class="newsletter-trust">Kostenlos &amp; jederzeit abbestellbar — kein Spam, versprochen.</div>
     </div>
   </section>
 
@@ -543,23 +802,36 @@
         <div>
           <h5>Vinothek Steinfurt</h5>
           <p>Gegenüber dem alten Rathaus in der historischen Altstadt von Burgsteinfurt.<br>Inhaber Oliver Tieck.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Vinothek Steinfurt auf Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.25.06 2.1.25 2.84.55.77.3 1.42.7 2.07 1.35.65.65 1.05 1.3 1.35 2.07.3.74.49 1.59.55 2.84.06 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.06 1.25-.25 2.1-.55 2.84-.3.77-.7 1.42-1.35 2.07-.65.65-1.3 1.05-2.07 1.35-.74.3-1.59.49-2.84.55-1.25.06-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.25-.06-2.1-.25-2.84-.55-.77-.3-1.42-.7-2.07-1.35-.65-.65-1.05-1.3-1.35-2.07-.3-.74-.49-1.59-.55-2.84C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.06-1.25.25-2.1.55-2.84.3-.77.7-1.42 1.35-2.07.65-.65 1.3-1.05 2.07-1.35.74-.3 1.59-.49 2.84-.55C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.07-1.02.05-1.58.22-1.95.36-.49.19-.84.42-1.21.79-.37.37-.6.72-.79 1.21-.14.37-.31.93-.36 1.95C2.87 8.48 2.87 8.85 2.87 12s0 3.52.06 4.76c.05 1.02.22 1.58.36 1.95.19.49.42.84.79 1.21.37.37.72.6 1.21.79.37.14.93.31 1.95.36 1.24.06 1.61.07 4.76.07s3.52 0 4.76-.07c1.02-.05 1.58-.22 1.95-.36.49-.19.84-.42 1.21-.79.37-.37.6-.72.79-1.21.14-.37.31-.93.36-1.95.06-1.24.07-1.61.07-4.76s0-3.52-.07-4.76c-.05-1.02-.22-1.58-.36-1.95-.19-.49-.42-.84-.79-1.21-.37-.37-.72-.6-1.21-.79-.37-.14-.93-.31-1.95-.36C15.52 4 15.15 4 12 4zm0 3.05A4.95 4.95 0 1 1 12 16.95 4.95 4.95 0 0 1 12 7.05zm0 1.8a3.15 3.15 0 1 0 0 6.3 3.15 3.15 0 0 0 0-6.3zm5.15-2.02a1.16 1.16 0 1 1-2.31 0 1.16 1.16 0 0 1 2.31 0z"/></svg>
+            </a>
+            <a href="#" aria-label="Vinothek Steinfurt auf Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.53c0-.86.24-1.44 1.47-1.44h1.57V4.46c-.27-.04-1.2-.12-2.28-.12-2.26 0-3.8 1.38-3.8 3.91v2.19H7.99v2.96h2.47V21h3.04z"/></svg>
+            </a>
+          </div>
         </div>
         <div>
           <h5>Öffnungszeiten</h5>
-          <p>Weinbar Di &amp; Do · 18–21 Uhr</p>
-          <p>Tagsüber Wein, Prosecco &amp; Kaffee</p>
-          <p>Abends Tapas</p>
+          <dl class="footer-hours">
+            <dt>Di · Mi · Do</dt><dd>9:30–12:30 &amp; 14:30–18:00</dd>
+            <dt>Fr</dt><dd>9:30–18:00 durchgehend</dd>
+            <dt>Sa</dt><dd>9:30–13:00</dd>
+          </dl>
+          <p class="footer-hours-note">Do 18–21 Uhr Weinbar · Fr 15–18 Uhr Fryday Wine Club</p>
         </div>
         <div>
           <h5>Entdecken</h5>
-          <a href="#">Weinsortiment</a>
-          <a href="#">Turmwächter-Edition</a>
-          <a href="#">Tastings &amp; Events</a>
-          <a href="#">Sasse Lagerkorn</a>
+          <a href="https://shop.vinothek-steinfurt.de/">Weinsortiment</a>
+          <a href="https://shop.vinothek-steinfurt.de/produkt-kategorie/sasse_limited_editions/">Turmwächter-Edition</a>
+          <a href="https://vinothek-steinfurt.de/events/">Tastings &amp; Events</a>
+          <a href="https://shop.vinothek-steinfurt.de/produkt-kategorie/korn-lagerkorn-sonstiges/">Sasse Lagerkorn</a>
         </div>
         <div>
           <h5>Kontakt</h5>
           <p>Steinstraße 4<br>48565 Steinfurt (NRW)</p>
+          <a href="tel:+4925514094">Tel. 02551 – 4094</a>
+          <a href="mailto:info@vinothek-steinfurt.de">info@vinothek-steinfurt.de</a>
           <a href="#">Reservierung anfragen</a>
         </div>
       </div>
@@ -583,5 +855,47 @@
     </div>
   </div>
 
+  <script>
+    (function(){
+      var burger = document.getElementById('burgerBtn');
+      var nav = document.getElementById('mainNav');
+      if(!burger || !nav) return;
+      burger.addEventListener('click', function(){
+        var isOpen = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(isOpen));
+      });
+      nav.querySelectorAll('a').forEach(function(link){
+        link.addEventListener('click', function(){
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
+      window.addEventListener('resize', function(){
+        if(window.innerWidth > 980 && nav.classList.contains('open')){
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+
+    (function(){
+      var track = document.getElementById('testimonialTrack');
+      var prev = document.getElementById('testiPrev');
+      var next = document.getElementById('testiNext');
+      var dots = document.querySelectorAll('.testimonial-dot');
+      if(!track || !dots.length) return;
+      function step(){ return track.firstElementChild.getBoundingClientRect().width + 24; }
+      function scrollToIndex(i){ track.scrollTo({ left: i * step(), behavior:'smooth' }); }
+      dots.forEach(function(dot){
+        dot.addEventListener('click', function(){ scrollToIndex(Number(dot.dataset.index)); });
+      });
+      if(prev) prev.addEventListener('click', function(){ track.scrollBy({ left:-step(), behavior:'smooth' }); });
+      if(next) next.addEventListener('click', function(){ track.scrollBy({ left:step(), behavior:'smooth' }); });
+      track.addEventListener('scroll', function(){
+        var idx = Math.round(track.scrollLeft / step());
+        dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+      }, { passive:true });
+    })();
+  </script>
 </body>
 </html>
